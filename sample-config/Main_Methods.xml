@@ -1,0 +1,19 @@
+<analyzers category="Main_Methods">
+
+    <class-match-analyzer>
+        <title><![CDATA[Main Methods]]></title>
+        <summary><![CDATA[Finds Main Methods]]></summary>
+        <description><![CDATA[
+Find class entry point methods with signature "public static void main(String[])"
+        ]]></description>
+
+        <class result-type="class">
+            <method>
+                <modifiers>public,static</modifiers>
+                <match-expression name="name" type="regex"><![CDATA[main]]></match-expression>
+                <match-expression name="return-type" type="contains" case-sensitive="false"><![CDATA[void]]></match-expression>
+                <match-expression name="parameter-types" type="regex"><![CDATA[(java\.lang\.String\[\])]]></match-expression>
+        </method>
+    </class>
+</class-match-analyzer>
+</analyzers>

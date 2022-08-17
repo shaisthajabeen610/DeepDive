@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="discotek-deepdive-thirdparty-example" default="build" basedir=".">
+
+	<target name="init"
+            description="Sets the timestamp properties,
+                         creates the neccessary directories
+                         and sets the compile classpath">
+		<echo message="Using Java Version: ${java.version}"/>
+		<property file="${basedir}/build.properties"/>
+
+	    <property name="config" value="${basedir}/config"/>
+		<property name="lib" value="${basedir}/lib"/>
+		<property name="src" value="${basedir}/src"/>
+		
+		<property name="build" value="${basedir}/build"/>
+		<property name="classes" value="${build}/classes"/>
+		<property name="dist" value="${basedir}/dist"/>
+		
+        <property name="jarfile" value="thirdparty-example-deepdive.jar"/>	
+		<property name="debug" value="on"/>
+
+		<path id="compile-classpath">
+            <fileset dir="${lib}">
+                <include name="*.jar" />
+            </fileset>
+		</path>
+		
+		<tstamp>
+			<format property="year" pattern="yyyy"/>
+		</tstamp>
+
+		<mkdir dir="${dist}"/>
+		<mkdir dir="${build}"/>
+		<mkdir dir="${classes}"/>
+	</target>
+
+	<target name="compile" depends="init">
+		<javac verbose="false"
+            destdir="${classes}"
+            debug="${debug}"
+			failonerror="true"
+        	deprecation="true">
+			<src path="${src}"/>
+			<classpath refid="compile-classpath"/>
+		</javac>
+	</target>
+
+    <target name="jar" depends="compile">
+    	<mkdir dir="${build}/analyzer-base/META-INF/analyzer"/>
+    	<copy todir="${build}/analyzer-base/META-INF/analyzer">
+    	    <fileset dir="${config}" includes="**/*.xml"/>
+    	  </copy>
+    	
+        <jar destfile="${dist}/${jarfile}">
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Built-On" value="${TODAY} ${TSTAMP}" />
+            </manifest>
+
+            <fileset dir="${classes}">
+                <include name="ca/discotek/**"/>
+            </fileset>
+        	
+            <fileset dir="${build}/analyzer-base">
+                <include name="**/*.xml"/>
+            </fileset>
+        	<!-- -->        	
+        	<metainf dir="${build}/analyzer-base" includes="*.xml" /> 
+        </jar>
+    </target>
+
+
+
+	
+	<target name="clean" depends="init">
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+		<delete dir="${doc}" />
+	</target>
+
+	<target name="build" depends="jar">
+	</target>
+
+</project>

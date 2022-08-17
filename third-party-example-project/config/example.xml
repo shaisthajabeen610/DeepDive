@@ -1,0 +1,28 @@
+<analyzers category="Deep Dive Example">
+
+    <custom-analyzer class="ca.discotek.deepdive.thirdparty.example.CountFileTypesAnalyzer">
+        <title>Example Analyzer - Counts File Type Analyzer</title>
+        <summary>Counts Number of each File Type Found in Deployment Unit.</summary>
+        <description>The number of file types in a deployment unit isn't necessarily a measure of
+        quality or security. This analyzer really just demonstrates how an analyzer could be built.</description>
+        <links>
+            <link>http://example.com/why_type_counts_are_important.html</link>
+        </links>
+    </custom-analyzer>
+    
+    <custom-analyzer class="ca.discotek.deepdive.thirdparty.example.FormMethodAnalyzer">
+        <title>Example Analyzer - Form Method Analyzer</title>
+        <summary>Finds References to Form Method Attribute</summary>
+        <description>
+        This analyzer might be helpful in assessing the security of an application. For instance,
+        if you wanted to ensure that all forms use the &lt;i&gt;POST&lt;/i&gt;s and not &lt;i&gt;GET&lt;/i&gt;s. However,
+        it is really just for demonstration purposes.
+        </description>
+        <links>
+            <link>http://example.com/why_reviewing_form_method_types_are_important.html</link>
+        </links>
+    </custom-analyzer>
+    
+</analyzers>
+
+
